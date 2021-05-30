@@ -10,7 +10,7 @@ class User {
 
 
   User({ Key key, 
-  @required this.uid,
+  this.uid,
   @required this.name,
   @required this.email,
   @required this.photoURL,
@@ -21,5 +21,4 @@ class User {
   //myFavoritePlaces 
   //myPlaces
 
-  
-}
+  }
