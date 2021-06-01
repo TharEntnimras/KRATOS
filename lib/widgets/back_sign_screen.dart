@@ -28,7 +28,7 @@ class BackSignScreen extends StatelessWidget {
 }
 
 class Meandros extends StatelessWidget {
-  const Meandros({Key key, @required this.screenHeight}) : super(key: key);
+  const Meandros({Key? key, required this.screenHeight}) : super(key: key);
 
   final double screenHeight;
 

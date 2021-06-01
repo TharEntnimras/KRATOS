@@ -21,9 +21,9 @@ class _FeedUserState extends State<FeedUser> {
   
   static const _itemsLength = 20;
 
-   List<Color> colors;
-   List<String> titles;
-   List<String> contents;
+   late List<Color> colors;
+   late List<String> titles;
+   late List<String> contents;
 
   @override
   void initState() {

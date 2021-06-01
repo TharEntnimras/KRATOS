@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Propuestas extends StatelessWidget {
   
-  Propuestas({Key key}) : super(key: key);
+  Propuestas({Key? key}) : super(key: key);
 
   List posts = [2, 3, 4, 5];
   List posts2 = ['Polo', 'Ana', 'Ricardo', 'Sergio'];

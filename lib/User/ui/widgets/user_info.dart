@@ -8,7 +8,7 @@ import 'package:kratos_pdd/User/ui/widgets/user_settings.dart';
 
 class UserInfo extends StatefulWidget {
   User user;
-  UserBloc userBloc;
+  UserBloc? userBloc;
   UserInfo(this.user);
 
   @override
@@ -30,7 +30,7 @@ class _UserInfoState extends State<UserInfo> {
           //shape: BoxShape.circle,
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: NetworkImage(widget.user.photoURL),
+            image: NetworkImage(widget.user.photoURL!),
           )),
     );
   }
@@ -47,7 +47,7 @@ class _UserInfoState extends State<UserInfo> {
         Container(
             margin: EdgeInsets.only(bottom: 5.0),
             child: Text(
-              widget.user.name,
+              widget.user.name!,
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -56,7 +56,7 @@ class _UserInfoState extends State<UserInfo> {
               ),
               textAlign: TextAlign.center,
             )),
-        Text(widget.user.email,
+        Text(widget.user.email!,
             style: TextStyle(
                 fontSize: 15.0, color: Colors.black, fontFamily: 'Gotham')),
       ],

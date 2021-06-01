@@ -7,7 +7,7 @@ import 'package:kratos_pdd/Participacion/ui/screens/propuestas.dart';
 import 'package:kratos_pdd/User/bloc/bloc_user.dart';
 
 class ParticipacionScreen extends StatefulWidget {
-  ParticipacionScreen({Key key}) : super(key: key);
+  ParticipacionScreen({Key? key}) : super(key: key);
 
   @override
   _ParticipacionScreenState createState() => _ParticipacionScreenState();

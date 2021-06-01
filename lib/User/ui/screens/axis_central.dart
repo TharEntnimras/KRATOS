@@ -6,7 +6,7 @@ import 'package:kratos_pdd/Info/ui/screens/info_screen.dart';
 import 'package:kratos_pdd/User/ui/screens/welcome_screen.dart';
 
 class AxisCentral extends StatelessWidget {
-  final User user;
+   User user;
 
   AxisCentral(this.user);
 

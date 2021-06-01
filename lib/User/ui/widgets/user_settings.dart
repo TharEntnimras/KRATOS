@@ -5,7 +5,7 @@ import 'package:kratos_pdd/User/bloc/bloc_user.dart';
 
 class UserSettings extends StatefulWidget {
  
-  UserBloc userBloc;
+  late UserBloc userBloc;
   //UserSettings();
 
   @override
@@ -14,7 +14,7 @@ class UserSettings extends StatefulWidget {
 
 class _UserSettings extends State<UserSettings> {
 
-  Widget wid;
+  Widget? wid;
   @override
   Widget build(BuildContext context) {
 
@@ -27,7 +27,7 @@ class _UserSettings extends State<UserSettings> {
         child: DropdownButton(
           icon: Container(),
           hint: settings(),
-          onChanged: (w) {
+          onChanged: (dynamic w) {
             setState(() {
               wid = w;
               widget.userBloc.signOut();

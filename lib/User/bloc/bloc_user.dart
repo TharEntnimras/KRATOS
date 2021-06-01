@@ -21,15 +21,15 @@ class UserBloc implements Bloc {
   // Streamcontroller - se usa para definir nuestro propio flujod e datos, 
   // para definirlo o alterarlo, PERO firebase ya tiene su flujo asi que 
   // solo usaremos STREAM 
-  Stream<User> streamFirebase = FirebaseAuth.instance.authStateChanges();
-  Stream<User> get authStatus => streamFirebase;
+  Stream<User?> streamFirebase = FirebaseAuth.instance.authStateChanges();
+  Stream<User?> get authStatus => streamFirebase;
   
-  User getcurrentUser() => FirebaseAuth.instance.currentUser;
+  User? getcurrentUser() => FirebaseAuth.instance.currentUser;
 
 
   //caso de uso
   ////1. sign in con google
-  Future<User> signIn()=> _auth_repository.signInFireBase();
+  Future<User?> signIn()=> _auth_repository.signInFireBase();
 
   // // registrar usuario en base de datos 
   // final _cloudFirestoreRepository = CloudFirestoreRepository();

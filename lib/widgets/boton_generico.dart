@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BotonGenerico extends StatefulWidget {
-  final String text;
+  final String? text;
   double width = 0.0;
   double height = 0.0;
-  final VoidCallback onPressed;
-  IconData icon;
-  double sizeicon;
+  final VoidCallback? onPressed;
+  IconData? icon;
+  double? sizeicon;
 
   BotonGenerico(
-      {Key key,
+      {Key? key,
       this.text,
       this.onPressed,
       this.icon,
       this.sizeicon,
-      @required this.height,
-      @required this.width});
+      required this.height,
+      required this.width});
 
   @override
   State createState() => _BotonGenericoState();
@@ -38,7 +38,7 @@ class _BotonGenericoState extends State<BotonGenerico> {
     );
   }
 
-  Center showcenter(String text) {
+  Center showcenter(String? text) {
     if (text == null) {
       return Center(
         child: FaIcon(
@@ -48,7 +48,7 @@ class _BotonGenericoState extends State<BotonGenerico> {
       );
     }
     return Center(
-        child: Text(widget.text,
+        child: Text(widget.text!,
             style: TextStyle(
               fontSize: 18.0,
               fontFamily: "Gotham",

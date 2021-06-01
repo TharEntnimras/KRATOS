@@ -17,8 +17,8 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreen extends State<SignInScreen> {
-  UserBloc userBloc;
-  double screenwidth;
+  late UserBloc userBloc;
+  double? screenwidth;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +43,12 @@ class _SignInScreen extends State<SignInScreen> {
   }
 
   Widget buildHomeApp() {
-    return BlocProvider<UserBloc>(
-      child: HomeApp(), 
-      bloc: UserBloc());
+    return Scaffold(
+      body: BlocProvider<UserBloc>(
+        child: HomeApp(),
+        bloc: UserBloc(),
+      ),
+    );
   }
 
   Widget signInGoogleUI() {
@@ -81,7 +84,7 @@ class _SignInScreen extends State<SignInScreen> {
                   text: "Login con Gmail",
                   onPressed: () {
                     userBloc.signOut();
-                    userBloc.signIn().then((User user) {
+                    userBloc.signIn().then((User? user) {
                       // userBloc.updateUserData(u.User(
                       //   uid: user.uid,
                       //   name: user.displayName,

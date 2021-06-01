@@ -9,7 +9,7 @@ import 'package:kratos_pdd/User/ui/widgets/user_settings.dart';
 import 'package:kratos_pdd/widgets/boton_generico.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  final User user;
+   User user;
 
   WelcomeScreen(this.user);
 
