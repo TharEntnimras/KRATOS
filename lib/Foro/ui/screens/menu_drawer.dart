@@ -6,7 +6,7 @@ import 'package:kratos_pdd/Foro/ui/screens/foro_screen.dart';
 import 'package:kratos_pdd/User/ui/screens/feed_user.dart';
 
 class MenuDrawer extends StatefulWidget {
-  MenuDrawer({Key key}) : super(key: key);
+  
 
   @override
   _MenuDrawer createState() => _MenuDrawer();
@@ -27,6 +27,12 @@ class _MenuDrawer extends State<MenuDrawer> {
             fontWeight: FontWeight.bold,
           ),
           colorLineSelected: Color(0xffD4AF37),
+          selectedStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 22.0,
+            fontFamily: "Gotham",
+            fontWeight: FontWeight.bold,
+          ),
         ),
         FeedUser()));
 
@@ -40,6 +46,12 @@ class _MenuDrawer extends State<MenuDrawer> {
             fontWeight: FontWeight.bold,
           ),
           colorLineSelected: Color(0xffD4AF37),
+           selectedStyle: TextStyle(
+            color: Colors.white,
+            fontSize: 22.0,
+            fontFamily: "Gotham",
+            fontWeight: FontWeight.bold,
+          ),
         ),
         ForoScreen()));
 

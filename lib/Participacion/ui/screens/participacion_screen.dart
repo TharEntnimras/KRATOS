@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:kratos_pdd/Participacion/ui/screens/propuestas.dart';
 import 'package:kratos_pdd/User/bloc/bloc_user.dart';
 
 class ParticipacionScreen extends StatefulWidget {
@@ -17,11 +18,8 @@ class _ParticipacionScreenState extends State<ParticipacionScreen> {
   static const TextStyle optionStyle =
       TextStyle(fontSize: 20, fontWeight: FontWeight.normal);
 
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Estas en la pagina de PROPUESTAS',
-      style: optionStyle,
-    ),
+  List<Widget> _widgetOptions = <Widget>[
+    Propuestas(),
     Text(
       'Estas en la pagina de SEGUIMIENTO',
       style: optionStyle,

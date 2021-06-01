@@ -1,8 +1,8 @@
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_lorem/flutter_lorem.dart';
 
 
@@ -18,6 +18,7 @@ class FeedUser extends StatefulWidget {
 }
 
 class _FeedUserState extends State<FeedUser> {
+  
   static const _itemsLength = 20;
 
    List<Color> colors;
