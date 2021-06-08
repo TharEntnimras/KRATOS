@@ -27,6 +27,7 @@ class MyApp extends StatelessWidget {
         //theme: ThemeData(primaryColor: Colors.black),
         debugShowCheckedModeBanner: false,
         home: SignInScreen(),
+        theme: ThemeData(accentColor: Colors.black),
       ),
       bloc: UserBloc(),
     );

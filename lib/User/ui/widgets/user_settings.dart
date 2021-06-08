@@ -4,7 +4,6 @@ import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:kratos_pdd/User/bloc/bloc_user.dart';
 
 class UserSettings extends StatefulWidget {
- 
   late UserBloc userBloc;
   //UserSettings();
 
@@ -13,35 +12,40 @@ class UserSettings extends StatefulWidget {
 }
 
 class _UserSettings extends State<UserSettings> {
-
-  Widget? wid;
   @override
   Widget build(BuildContext context) {
+    widget.userBloc = BlocProvider.of(context);
 
-  widget.userBloc = BlocProvider.of(context);
-   
-   return DropdownButtonHideUnderline(
+    return DropdownButtonHideUnderline(
       child: Container(
         alignment: Alignment.center,
         decoration: BoxDecoration(shape: BoxShape.circle),
         child: DropdownButton(
           icon: Container(),
           hint: settings(),
-          onChanged: (dynamic w) {
+          onChanged: (val) {
             setState(() {
-              wid = w;
-              widget.userBloc.signOut();
+              if (val == 1) {
+                widget.userBloc.signOut();
+              }
             });
           },
-          items: <Widget>[userSettings(), signout()].map<DropdownMenuItem>((w) {
-            return DropdownMenuItem(value: w, child: w);
-          }).toList(),
+          items: [
+            DropdownMenuItem(
+              value: 0,
+              child: userSettings(),
+            ),
+            DropdownMenuItem(
+              value: 1,
+              child: signout(),
+            )
+          ],
         ),
       ),
     );
   }
 
-    Widget settings() {
+  Widget settings() {
     return Container(
       decoration: BoxDecoration(
           color: Colors.white,
@@ -59,15 +63,14 @@ class _UserSettings extends State<UserSettings> {
     );
   }
 
-  Widget userSettings(){
-      return FaIcon(
+  Widget userSettings() {
+    return FaIcon(
       FontAwesomeIcons.userCog,
       size: 20.0,
       color: Colors.black,
     );
   }
 
-  
   Widget signout() {
     return Icon(
       Icons.logout,

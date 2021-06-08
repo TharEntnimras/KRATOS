@@ -9,11 +9,17 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:kratos_pdd/User/model/user.dart' as u;
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:kratos_pdd/User/repository/auth_repository.dart';
+import 'package:kratos_pdd/User/repository/repository_cloud_firestore.dart';
 
 
 class UserBloc implements Bloc {
 
-  final _auth_repository=AuthRepository();
+  final _authrepository=AuthRepository();
+  final _cloudFirestoreRepository = CloudFirestoreRepository();
+
+  getstring(){
+    return 'patata';
+  }
 
 
   //FLUJO DE DATOS - stream
@@ -25,16 +31,21 @@ class UserBloc implements Bloc {
   Stream<User?> get authStatus => streamFirebase;
   
   User? getcurrentUser() => FirebaseAuth.instance.currentUser;
+  Future<UserCredential?> signIn()=> _authrepository.signInFireBase();
 
 
-  //caso de uso
-  ////1. sign in con google
-  Future<User?> signIn()=> _auth_repository.signInFireBase();
+
 
   // // registrar usuario en base de datos 
-  // final _cloudFirestoreRepository = CloudFirestoreRepository();
-  // void updateUserData(u.User user)=> _cloudFirestoreRepository.updateUserDataFirestore(user);
-   
+ 
+  void updateNewUserData(u.User user)=> _cloudFirestoreRepository.updateNewUserDataFirestore(user);
+  
+   getverif(String uid)=>_cloudFirestoreRepository.getverif(uid);
+
+  Stream getestaverificado ()=> _cloudFirestoreRepository.getestaverificado();
+
+  StreamSink get verifsink => _cloudFirestoreRepository.verifsink;
+
   // Future<void> updatePlaceData(Place place)=>_cloudFirestoreRepository.updatePlaceData(place);
 
   // // escucha los cambios hechos a PLACES y actualiza automaticamente
@@ -65,7 +76,7 @@ class UserBloc implements Bloc {
 
 
   signOut(){
-    _auth_repository.signOut(); 
+    _authrepository.signOut(); 
   }
 
 

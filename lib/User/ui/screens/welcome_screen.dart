@@ -4,12 +4,13 @@ import 'package:flutter/services.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kratos_pdd/User/model/user.dart';
+import 'package:kratos_pdd/User/ui/widgets/linea_meandros.dart';
 import 'package:kratos_pdd/User/ui/widgets/user_info.dart';
 import 'package:kratos_pdd/User/ui/widgets/user_settings.dart';
 import 'package:kratos_pdd/widgets/boton_generico.dart';
 
 class WelcomeScreen extends StatefulWidget {
-   User user;
+  User user;
 
   WelcomeScreen(this.user);
 
@@ -52,7 +53,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               SizedBox(height: 5.0),
             ],
           ),
-          SizedBox(width: 75.0,),
+          SizedBox(
+            width: 75.0,
+          ),
           UserSettings(),
         ]),
         toolbarHeight: 75.0,
@@ -61,7 +64,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         brightness: Brightness.light,
         elevation: 0.0,
         bottom: PreferredSize(
-          child: decoracionHeader(screenwidth),
+          child: LineaMeandros(screenwidth),
           preferredSize: Size(screenwidth, 10.0),
         ),
       ),
@@ -111,28 +114,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ]),
       ),
     );
-  }
-
-  Widget decoracionHeader(double width) {
-    // return Container(
-    //   padding: EdgeInsets.only(top: 1.5, bottom: 1.5),
-    //   alignment: Alignment.center,
-    //   color: Color(0xffB80000),
-    //   width: width,
-    //   height: 26.0,
-    return Container(
-      padding: EdgeInsets.only(top: 1.5, bottom: 1.5),
-      height: 20.0,
-      width: width,
-      color: Colors.black,
-      child: Image(
-        image: AssetImage('assets/meandrosh1.png'),
-        alignment: Alignment.center,
-        fit: BoxFit.contain,
-        repeat: ImageRepeat.repeatX,
-      ),
-    );
-    //);
   }
 
   Widget botoninferior() {

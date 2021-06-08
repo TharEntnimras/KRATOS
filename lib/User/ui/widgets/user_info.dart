@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-import 'package:kratos_pdd/User/bloc/bloc_user.dart';
+//import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+//import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+//import 'package:kratos_pdd/User/bloc/bloc_user.dart';
+//import 'package:kratos_pdd/User/ui/widgets/user_settings.dart';
 
 import 'package:kratos_pdd/User/model/user.dart';
-import 'package:kratos_pdd/User/ui/widgets/user_settings.dart';
 
 class UserInfo extends StatefulWidget {
   User user;
-  UserBloc? userBloc;
+  //UserBloc? userBloc;
   UserInfo(this.user);
 
   @override
@@ -27,7 +27,6 @@ class _UserInfoState extends State<UserInfo> {
             style: BorderStyle.solid,
           ),
           shape: BoxShape.circle,
-          //shape: BoxShape.circle,
           image: DecorationImage(
             fit: BoxFit.cover,
             image: NetworkImage(widget.user.photoURL!),
@@ -39,7 +38,7 @@ class _UserInfoState extends State<UserInfo> {
   Widget build(BuildContext context) {
     print("RENDEREANDO LA SCREEN WREY");
 
-    widget.userBloc = BlocProvider.of(context);
+    //widget.userBloc = BlocProvider.of(context);
 
     final userInfo = Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -58,7 +57,10 @@ class _UserInfoState extends State<UserInfo> {
             )),
         Text(widget.user.email!,
             style: TextStyle(
-                fontSize: 15.0, color: Colors.black, fontFamily: 'Gotham')),
+              fontSize: 15.0,
+              color: Colors.black,
+              fontFamily: 'Gotham',
+            )),
       ],
     );
 
@@ -70,16 +72,12 @@ class _UserInfoState extends State<UserInfo> {
           SizedBox(
             height: 15.0,
           ),
-          Stack(
-            children: [
-              userphoto(),
-              // Positioned(
-              //   top: -5.0,
-              //   right: 0.0,
-              //   child: UserSettings(),
-              // )
-            ],
-          ),
+          userphoto(),
+          // Positioned(
+          //   top: -5.0,
+          //   right: 0.0,
+          //   child: UserSettings(),
+          // )
           SizedBox(
             height: 20.0,
           ),
