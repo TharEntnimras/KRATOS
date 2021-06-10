@@ -16,7 +16,7 @@ class UserImage extends StatelessWidget {
       decoration: BoxDecoration(
           border: Border.all(
             color: Colors.black,
-            width: 3.0,
+            width: 2.0,
             style: BorderStyle.solid,
           ),
           shape: BoxShape.circle,

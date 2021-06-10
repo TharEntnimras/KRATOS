@@ -27,6 +27,7 @@ class _UserSettings extends State<UserSettings> {
             setState(() {
               if (val == 1) {
                 widget.userBloc.signOut();
+                //widget.userBloc.disposeStreamVerificado();
               }
             });
           },

@@ -5,8 +5,8 @@ import 'package:animate_do/animate_do.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 
 import 'package:kratos_pdd/User/bloc/bloc_user.dart';
-import 'package:kratos_pdd/User/ui/screens/home_app.dart';
-import 'package:kratos_pdd/User/ui/screens/new_user_screen.dart';
+
+import 'package:kratos_pdd/User/ui/widgets/user_verif.dart';
 import 'package:kratos_pdd/widgets/boton_generico.dart';
 import 'package:kratos_pdd/widgets/back_sign_screen.dart';
 import 'package:kratos_pdd/User/model/user.dart' as u;
@@ -36,7 +36,6 @@ class _SignInScreen extends State<SignInScreen> {
     return StreamBuilder(
       stream: userBloc.authStatus,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        //snapshot - data - object user
         if (!snapshot.hasData || snapshot.hasError) {
           return signInGoogleUI();
         } else {
@@ -46,29 +45,24 @@ class _SignInScreen extends State<SignInScreen> {
             email: snapshot.data.email,
             photoURL: snapshot.data.photoURL,
           );
-          
-          if (nuevo) {
-            return NewUserScreen(user);
-          }
-          return buildHomeApp(user);
+
+          userBloc.getverif(user.uid);
+          return UserVerif(user);
+          // if(nuevo){
+          //   return NewUserScreen(user);
+          // }else{
+          //     userBloc.getverif(user.uid);
+          //     return HomeApp(user);
+          // }
+
         }
       },
-    );
-  }
-
-  Widget buildHomeApp(u.User user) {
-    return Scaffold(
-      body: BlocProvider<UserBloc>(
-        child: HomeApp(user),
-        bloc: UserBloc(),
-      ),
     );
   }
 
   Widget signInGoogleUI() {
     return Scaffold(
       body: Stack(
-        //alignment: Alignment.center,
         children: [
           BackSignScreen(),
           Column(
@@ -95,22 +89,16 @@ class _SignInScreen extends State<SignInScreen> {
                 delay: Duration(seconds: 1),
                 duration: Duration(seconds: 2),
                 child: BotonGenerico(
+                  tsize: 18.0,
                   text: "Login con Gmail",
                   onPressed: () {
-                    userBloc.signOut();
+                    //userBloc.signOut();
                     userBloc.signIn().then((UserCredential? userCredential) {
                       if (userCredential!.additionalUserInfo!.isNewUser) {
-                        // user = u.User(
-                        //     uid: userCredential.user!.uid,
-                        //     name: userCredential.user!.displayName,
-                        //     email: userCredential.user!.email,
-                        //     photoURL: userCredential.user!.photoURL);
-
-                        //userBloc.updateNewUserData(user);
                         setState(() {
                           nuevo = userCredential.additionalUserInfo!.isNewUser;
                         });
-                      } else {}
+                      }
                     });
                   },
                   width: 200.0,

@@ -7,6 +7,7 @@ class AuthRepository {
 
   signOut()=> _firebaseAuthAPI.signOut();
 
+  //getLogedUser()=> _firebaseAuthAPI.getLogedUser();
   
 
 } 

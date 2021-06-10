@@ -5,6 +5,7 @@ class TextInput extends StatelessWidget {
   final TextInputType? inputType;
   TextEditingController? controller;
   final TextAlign alineacion;
+  String? helptext;
   int maxlines = 1;
 
   TextInput({
@@ -13,7 +14,8 @@ class TextInput extends StatelessWidget {
     this.controller,
     this.inputType,
     required this.maxlines,
-    required this.alineacion
+    required this.alineacion,
+    this.helptext
   });
 
   @override
@@ -26,13 +28,16 @@ class TextInput extends StatelessWidget {
           keyboardType: inputType,
           textAlign: alineacion,
           controller: controller,
+          enableSuggestions: false,
           maxLines: maxlines,
+          
           style: TextStyle(
               fontSize: 15.0,
               fontFamily: "Gotham",
               color: Colors.blueGrey,
               fontWeight: FontWeight.bold),
           decoration: InputDecoration(
+            helperText: helptext,
             filled: true,
             fillColor: Color(0xFFe5e5e5),
             border: InputBorder.none,

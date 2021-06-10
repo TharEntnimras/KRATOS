@@ -13,6 +13,11 @@ class CloudFirestoreRepository {
   getverif(String uid)=> _cloudFirestoreAPI.getverif(uid);
   Stream getestaverificado ()=> _cloudFirestoreAPI.getestaverificado;
   StreamSink get verifsink => _cloudFirestoreAPI.verifsink;
+  disposeStreamVerificado() => _cloudFirestoreAPI.disposeStreamVerficado();
+
+  Future getDocUserDB(String uid)=> _cloudFirestoreAPI.getDocUserDB(uid);
+
+  
   // Future<void> updatePlaceData(Place place) => _cloudFirestoreAPI.updatePlaceData(place);
   // List<Place> buildPlaces(List<DocumentSnapshot> placesListsnapshot, User user)=> _cloudFirestoreAPI.buildPlaces(placesListsnapshot, user);
   // //List<CardImageWithFabIcon> buildPlaces(List<DocumentSnapshot> placesListSnapshot ) => _cloudFirestoreAPI.buildPlaces(placesListSnapshot);

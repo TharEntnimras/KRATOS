@@ -81,7 +81,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             ],
           ),
           SizedBox(
-            height: 70.0,
+            height: 65.0,
           ),
           Container(
             height: 230.0,
@@ -129,6 +129,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             color: Color(0xff2660A4),
           ),
           BotonGenerico(
+            tsize: 18.0,
             height: 60.0,
             width: 100.0,
             sizeicon: 26.0,
@@ -157,6 +158,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 color: Color(0xffB80000),
               ),
               BotonGenerico(
+                tsize: 18.0,
                 height: 70.0,
                 width: 60.0,
                 sizeicon: 29.0,
@@ -178,6 +180,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 color: Color(0xffCBA135),
               ),
               BotonGenerico(
+                tsize: 18.0,
                 height: 70.0,
                 width: 60.0,
                 icon: FontAwesomeIcons.fistRaised,

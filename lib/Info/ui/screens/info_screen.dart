@@ -33,7 +33,11 @@ class InfoScreen extends StatelessWidget {
       ),
       body: Container(
         alignment: Alignment.center,
-        child: Text("Estas en la pagina de noticias"),
+        child: TextField(
+          maxLines: 1,
+        )
+        
+        //Text("Estas en la pagina de noticias"),
       ),
     );
   }

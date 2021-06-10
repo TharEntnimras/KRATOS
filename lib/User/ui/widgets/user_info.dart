@@ -43,6 +43,17 @@ class _UserInfoState extends State<UserInfo> {
     final userInfo = Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
+        Text(
+          widget.user.tipo!,
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontFamily: 'Gotham',
+          ),
+          textAlign: TextAlign.center,
+        ),
+        SizedBox(height: 10.0,),
         Container(
             margin: EdgeInsets.only(bottom: 5.0),
             child: Text(
@@ -73,11 +84,6 @@ class _UserInfoState extends State<UserInfo> {
             height: 15.0,
           ),
           userphoto(),
-          // Positioned(
-          //   top: -5.0,
-          //   right: 0.0,
-          //   child: UserSettings(),
-          // )
           SizedBox(
             height: 20.0,
           ),

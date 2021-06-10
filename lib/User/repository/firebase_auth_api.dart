@@ -5,9 +5,9 @@ class FirebaseAuthAPI {
   
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  String? purl;
-  late User user;
+  //late final User userloged;
 
+  
 
   Future<UserCredential?> signIn() async {
     
@@ -17,9 +17,11 @@ class FirebaseAuthAPI {
     UserCredential userc = await _auth.signInWithCredential(
     GoogleAuthProvider.credential(idToken: gSA.idToken, accessToken: gSA.accessToken)
     );
-    return userc; 
+    //userloged= userc.user!;
+    return userc;
   }
-
+  
+  //getLogedUser()=> userloged;
 
   signOut() async {
     await _auth.signOut().then((value) => print("sesion cerrada prro"));
