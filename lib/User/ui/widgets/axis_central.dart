@@ -26,7 +26,7 @@ class AxisCentral extends StatelessWidget {
           children: [
             InfoScreen(),
             WelcomeScreen(user),
-            ParticipacionScreen(),
+            ParticipacionScreen(user),
           ]),
     );
   }

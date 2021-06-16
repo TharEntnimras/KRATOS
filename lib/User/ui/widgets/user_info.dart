@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 //import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:generic_bloc_provider/generic_bloc_provider.dart';
@@ -17,21 +18,51 @@ class UserInfo extends StatefulWidget {
 
 class _UserInfoState extends State<UserInfo> {
   Widget userphoto() {
-    return Container(
-      width: 110.0,
-      height: 110.0,
-      decoration: BoxDecoration(
+    return CachedNetworkImage(
+      imageUrl: widget.user.photoURL!,
+      imageBuilder: (context, imageProvider) => Container(
+        width: 110.0,
+        height: 110.0,
+        decoration: BoxDecoration(
           border: Border.all(
             color: Colors.black,
             width: 3.0,
             style: BorderStyle.solid,
           ),
           shape: BoxShape.circle,
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: NetworkImage(widget.user.photoURL!),
-          )),
+          image: DecorationImage(image: imageProvider, fit: BoxFit.cover),
+        ),
+      ),
+      placeholder: (context, url) => Container(
+        width: 110,
+        height: 110,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.black,
+            width: 3.0,
+            style: BorderStyle.solid,
+          ),
+          shape: BoxShape.circle,
+        ),
+      ),
+        errorWidget: (context, url, error) => Icon(Icons.error),
     );
+    
+    // return Container(
+    //   width: 110.0,
+    //   height: 110.0,
+    //   decoration: BoxDecoration(
+    //       border: Border.all(
+    //         color: Colors.black,
+    //         width: 3.0,
+    //         style: BorderStyle.solid,
+    //       ),
+    //       shape: BoxShape.circle,
+    //       image: DecorationImage(
+    //         fit: BoxFit.cover,
+    //         image:  DecorationImage(image: CachedNetworkImage(imageUrl: widget.user.photoURL!)),         // CachedNetworkImage(imageUrl: widget.user.photoURL!)//NetworkImage(widget.user.photoURL!),
+    //       )),
+    // );
   }
 
   @override
@@ -53,11 +84,13 @@ class _UserInfoState extends State<UserInfo> {
           ),
           textAlign: TextAlign.center,
         ),
-        SizedBox(height: 10.0,),
+        SizedBox(
+          height: 10.0,
+        ),
         Container(
             margin: EdgeInsets.only(bottom: 5.0),
             child: Text(
-              widget.user.name!,
+              widget.user.name,
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,

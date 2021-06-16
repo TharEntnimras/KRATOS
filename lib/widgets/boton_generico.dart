@@ -11,6 +11,8 @@ class BotonGenerico extends StatefulWidget {
   double tsize;
   Color? backcolor;
   Color? texcolor = Colors.black54;
+  bool borde;
+  Icon? iconoadelante;
 
   BotonGenerico(
       {Key? key,
@@ -20,6 +22,8 @@ class BotonGenerico extends StatefulWidget {
       this.sizeicon,
       this.backcolor,
       this.texcolor,
+      this.borde = true,
+      this.iconoadelante,
       required this.tsize,
       required this.height,
       required this.width});
@@ -29,6 +33,8 @@ class BotonGenerico extends StatefulWidget {
 }
 
 class _BotonGenericoState extends State<BotonGenerico> {
+  Border bord = Border.all(color: Colors.black87);
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -38,28 +44,35 @@ class _BotonGenericoState extends State<BotonGenerico> {
         width: widget.width,
         decoration: BoxDecoration(
           color: widget.backcolor,
-          border: Border.all(color: Colors.black45),
+          border: widget.borde == false ? null : bord,
         ),
-        child: showcenter(widget.text, widget.tsize,widget.texcolor),
+        child: widget.iconoadelante == null
+            ? Center(
+                child: showcenter(widget.text, widget.tsize, widget.texcolor))
+            : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  widget.iconoadelante!,
+                  showcenter(widget.text, widget.tsize, widget.texcolor),
+                ],
+              ),
       ),
     );
   }
 
-  Center showcenter(String? text, double tsize, Color? texcolor) {
+  Widget showcenter(String? text, double tsize, Color? texcolor) {
     if (text == null) {
-      return Center(
-        child: FaIcon(
-          widget.icon,
-          size: widget.sizeicon,
-        ),
+      return FaIcon(
+        widget.icon,
+        size: widget.sizeicon,
       );
     }
-    return Center(
-        child: Text(widget.text!,
-            style: TextStyle(
-              fontSize: tsize,
-              fontFamily: "Gotham",
-              color: texcolor,
-            )));
+    return Text(widget.text!,
+        style: TextStyle(
+            fontSize: tsize,
+            fontFamily: "Gotham",
+            color: texcolor,
+            fontWeight: FontWeight.bold));
   }
 }

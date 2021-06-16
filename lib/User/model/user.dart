@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class User {
   final String uid;
-  final String? name;
+  final String name;
   final String? email;
   final String? photoURL;
   final String? tipo;

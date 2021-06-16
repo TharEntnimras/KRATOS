@@ -14,7 +14,7 @@ class UserNameMail extends StatelessWidget {
         Container(
             margin: EdgeInsets.only(bottom: 5.0),
             child: Text(
-              user.name!,
+              user.name,
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
