@@ -3,6 +3,7 @@ import 'package:kratos_pdd/Debate/model/Comentario.dart';
 import 'package:kratos_pdd/User/model/user.dart';
 
 class Propuesta {
+  String pid;
   final String nomprop;
   final String problema;
   final String solucion;
@@ -25,6 +26,7 @@ class Propuesta {
   List<Comentario>? comentarios;
 
   Propuesta({
+    this.pid = '123',
     required this.orden,
     required this.nomprop,
     required this.problema,

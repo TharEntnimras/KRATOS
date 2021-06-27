@@ -36,11 +36,7 @@ class _ParticipacionScreenState extends State<ParticipacionScreen> {
     Icons.find_in_page,
   ];
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedindex = index;
-    });
-  }
+
 
   @override
   Widget build(BuildContext context) {

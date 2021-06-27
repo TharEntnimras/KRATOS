@@ -288,34 +288,6 @@ class _NewPropState extends State<NewProp> {
                 Divider(),
                 const SizedBox(height: 8),
                 Text(
-                  'Nombre o Titular',
-                  style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "Basker",
-                      color: Colors.black),
-                ),
-                SizedBox(height: 15),
-                Container(
-                  width: double.infinity,
-                  height: 100,
-                  child: TextInput(
-                    fontcolor: Colors.black87,
-                    fontfamily: 'Basker',
-                    fontsize: 17,
-                    hintText: 'El nombre o titulo de tu propuesta.',
-                    maxlines: 2,
-                    inputType: TextInputType.multiline,
-                    maxlenght: 70,
-                    controller: nomcontrol,
-                    colorfondo: Colors.white,
-                    alineacion: TextAlign.left,
-                    margen: 0,
-                    fontweight: FontWeight.w500,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
                   'Orden y categoria',
                   style: TextStyle(
                       fontSize: 18.0,
@@ -426,6 +398,34 @@ class _NewPropState extends State<NewProp> {
                                     ))
                                 : Container(),
                   ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Nombre o Titular',
+                  style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Basker",
+                      color: Colors.black),
+                ),
+                SizedBox(height: 15),
+                Container(
+                  width: double.infinity,
+                  height: 100,
+                  child: TextInput(
+                    fontcolor: Colors.black87,
+                    fontfamily: 'Basker',
+                    fontsize: 17,
+                    hintText: 'El nombre o titulo de tu propuesta.',
+                    maxlines: 2,
+                    inputType: TextInputType.multiline,
+                    maxlenght: 70,
+                    controller: nomcontrol,
+                    colorfondo: Colors.white,
+                    alineacion: TextAlign.left,
+                    margen: 0,
+                    fontweight: FontWeight.w500,
+                  ),
                 ),
                 SizedBox(height: 15),
                 Text(
@@ -540,32 +540,35 @@ class _NewPropState extends State<NewProp> {
                           argcontrol.text != "") {
                         Navigator.pop(context);
                         partBloc.updatePropuestaDB(Propuesta(
-                          orden: _valOrden,
-                          nomprop: nomcontrol.text,
-                          problema: probcontrol.text,
-                          solucion: solcontrol.text,
-                          argumento: argcontrol.text,
-                          categoria: _valOrden == 'acad'
-                              ? _valAcad
-                              : _valOrden == 'admin'
-                                  ? _valAdmin
-                                  : _valComu,
-                          ownerTipo: widget.user.tipo!,
-                          ownerName: widget.user.name,
-                          ownerUid: widget.user.uid,
-                          fecha: DateTime.now().toString()
-                        ));
+                            orden: _valOrden,
+                            nomprop: nomcontrol.text,
+                            problema: probcontrol.text,
+                            solucion: solcontrol.text,
+                            argumento: argcontrol.text,
+                            categoria: _valOrden == 'acad'
+                                ? _valAcad
+                                : _valOrden == 'admin'
+                                    ? _valAdmin
+                                    : _valComu,
+                            ownerTipo: widget.user.tipo!,
+                            ownerName: widget.user.name,
+                            ownerUid: widget.user.uid,
+                            fecha: DateTime.now().toString()));
                       } else {
                         showDialog<String>(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
                             title: const Text(
                               'Importante',
-                              style: TextStyle(fontFamily: "Gotham", fontWeight: FontWeight.bold, fontSize: 21),
+                              style: TextStyle(
+                                  fontFamily: "Gotham",
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 21),
                             ),
                             content: const Text(
                               'Rellena todos los datos por favor.',
-                              style: TextStyle(fontFamily: "Gotham", fontSize: 18),
+                              style:
+                                  TextStyle(fontFamily: "Gotham", fontSize: 18),
                             ),
                             actions: <Widget>[
                               TextButton(
@@ -573,11 +576,10 @@ class _NewPropState extends State<NewProp> {
                                 child: const Text(
                                   'OK',
                                   style: TextStyle(
-                                    fontFamily: 'Gotham',
-                                    fontSize: 21,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xffCBA135)
-                                  ),
+                                      fontFamily: 'Gotham',
+                                      fontSize: 21,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xffCBA135)),
                                 ),
                               ),
                             ],

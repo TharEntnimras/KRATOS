@@ -48,4 +48,14 @@ class ApiCloudPart {
       });
     }).then((value) => print('CARGA DE PROPUESTA TERMINADA'));
   }
+
+  // escucha los cambios hechos a PROPUESTAS y actualiza automaticamente
+  Stream<QuerySnapshot> propuestasStreamDB = FirebaseFirestore.instance
+      .collection(PROPUESTAS).orderBy('fecha', descending: true)
+      .snapshots();
+
+  Stream<QuerySnapshot> get propuestasStream => propuestasStreamDB;
+
+
+
 }

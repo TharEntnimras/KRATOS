@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:kratos_pdd/Debate/bloc/comm_bloc.dart';
@@ -11,16 +12,17 @@ import 'package:kratos_pdd/User/bloc/bloc_user.dart';
 import 'package:kratos_pdd/User/model/user.dart';
 import 'package:kratos_pdd/widgets/post_button.dart';
 
-class ComentContainer extends StatelessWidget {
+class ComRaizContainer extends StatelessWidget {
+  final VoidCallback onTapped;
   final Comentario comment;
   final User user;
-  final Propuesta prop;
+  //final Propuesta prop;
 
-  ComentContainer(
+  ComRaizContainer(
       {Key? key,
       required this.comment,
       required this.user,
-      required this.prop
+      required this.onTapped
       });
 
   @override
@@ -62,16 +64,12 @@ class ComentContainer extends StatelessWidget {
                 _ComStats(
                   comment: comment,
                   user: user,
-                  prop: prop
+                  onTapped: onTapped,
                 ),
               ],
             ),
           ),
 
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          //   child: _PropStats(prop: prop),
-          // )
         ],
       ),
     );
@@ -152,15 +150,16 @@ class _ComHeader extends StatelessWidget {
 
 class _ComStats extends StatelessWidget {
 
+  final VoidCallback onTapped;
+
   final Comentario comment;
   final User user;
-  final Propuesta prop;
 
   const _ComStats(
       {Key? key,
       required this.comment,
       required this.user,
-      required this.prop
+      required this.onTapped
      });
 
   @override
@@ -194,19 +193,7 @@ class _ComStats extends StatelessWidget {
               const SizedBox(width: 30),
               //Responder comentario
               GestureDetector(
-                  onTap: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                                  bloc: CommBloc(),
-                                  child: RespuestaScreen(
-                                    user: user,
-                                    prop: prop,
-                                    comraiz: comment,
-                                  ), 
-                                )));
-                  },
+                  onTap: onTapped,
                   child: Text(
                     'Responder',
                     style: TextStyle(

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 // ignore: must_be_immutable
 class BoxComment extends StatelessWidget {
   Widget? child;
@@ -10,23 +9,29 @@ class BoxComment extends StatelessWidget {
   dynamic argController;
   dynamic concController;
   Widget? lead;
+  Widget? respField;
+  //bool respFieldEnable;
   String? hintText;
   String? errorText;
   Widget? sendWidget;
   Color? backgroundColor;
   Color? textColor;
+  FocusNode? concfocus;
 
   Widget? header;
   FocusNode? focusNode;
   BoxComment(
       {this.child,
+      this.concfocus,
       this.header,
+      this.respField,
       this.sendButtonMethod,
       this.formKey,
       this.argController,
       this.concController,
       this.sendWidget,
       this.lead,
+      //this.respFieldEnable = false
       this.hintText,
       this.focusNode,
       this.errorText,
@@ -41,18 +46,19 @@ class BoxComment extends StatelessWidget {
         Divider(
           height: 1,
           color: Colors.black26,
-        ),
-        //header ?? SizedBox.shrink(),
+        ),   
         Container(
           color: Colors.white,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 10),
+              SizedBox(height: 7),
+              header ?? SizedBox.shrink(),
               Container(
                   height: 50,
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   child: TextField(
-               
+                    focusNode: concfocus,
                     autofocus: false,
                     autocorrect: false,
                     textAlign: TextAlign.left,
@@ -83,6 +89,10 @@ class BoxComment extends StatelessWidget {
               ListTile(
                 tileColor: backgroundColor,
                 leading: lead,
+                contentPadding: EdgeInsets.only(right: 8,left: 7,top: 2,bottom: 7),
+                //minLeadingWidth: 7,
+                focusNode: focusNode,
+                //minVerticalPadding: 7,
                 // leading: Container(
                 //   height: 40.0,
                 //   width: 40.0,
@@ -100,7 +110,7 @@ class BoxComment extends StatelessWidget {
                     keyboardType: TextInputType.multiline,
                     maxLines: 2,
                     minLines: 1,
-                    focusNode: focusNode,
+                    //focusNode: FocusNode(canRequestFocus: false),
                     cursorColor: textColor,
                     style: TextStyle(color: textColor),
                     controller: argController,

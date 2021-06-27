@@ -21,14 +21,20 @@ class PostButton extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Container(
-            //padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            padding: const EdgeInsets.only(right: 15),
             height: 35.0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 icon,
-                const SizedBox(width: 4),
-                Text(label),
+                const SizedBox(width: 5),
+                Text(label,
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 13,
+                  fontFamily: 'Helv'
+                ),
+                ),
               ],
             ),
           ),

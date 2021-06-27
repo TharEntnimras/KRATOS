@@ -11,17 +11,17 @@ import 'package:kratos_pdd/User/bloc/bloc_user.dart';
 import 'package:kratos_pdd/User/model/user.dart';
 import 'package:kratos_pdd/widgets/post_button.dart';
 
-class ComentContainer extends StatelessWidget {
+class RespContainer extends StatelessWidget {
+  final VoidCallback onTapped;
   final Comentario comment;
   final User user;
-  final Propuesta prop;
+  //final Propuesta prop;
 
-  ComentContainer(
+  RespContainer(
       {Key? key,
       required this.comment,
       required this.user,
-      required this.prop
-      });
+      required this.onTapped});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class ComentContainer extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 23, right: 10),
+            padding: const EdgeInsets.only(left: 55, right: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -62,7 +62,7 @@ class ComentContainer extends StatelessWidget {
                 _ComStats(
                   comment: comment,
                   user: user,
-                  prop: prop
+                  onTapped: onTapped,
                 ),
               ],
             ),
@@ -95,18 +95,18 @@ class _ComHeader extends StatelessWidget {
           comment.posicion == 'pro'
               ? Container(
                   // height: 35,
-                  width: 7,
+                  width: 5,
                   color: Colors.green[600],
                 )
               : comment.posicion == 'contra'
                   ? Container(
                       //height: 35,
-                      width: 7,
+                      width: 5,
                       color: Colors.red[600],
                     )
                   : Container(
                       //height: 35,
-                      width: 7,
+                      width: 5,
                       color: Colors.grey[400],
                     ),
           const SizedBox(width: 8.0),
@@ -114,24 +114,49 @@ class _ComHeader extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  comment.autor,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'Helv',
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold),
+                Row(
+                  children: [
+                    Text(
+                      '${comment.autor} • ',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Helv',
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    //const SizedBox(height: 4),
+                    Text(
+                      comment.autorTipo,
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontFamily: 'Helv',
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  comment.autorTipo,
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontFamily: 'Helv',
-                      fontSize: 11,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 3),
+                comment.respuestaA == '' || comment.respuestaA == null
+                    ? SizedBox.shrink()
+                    : Container(
+                        padding: EdgeInsets.only(
+                            left: 4, top: 4, bottom: 2, right: 3),
+                        //width: 150,
+                        color: comment.posicion == 'pro'
+                            ? Colors.green[600]
+                            : comment.posicion == 'contra'
+                                ? Colors.red[600]
+                                : Colors.grey[400],
+                        child: Text(
+                          comment.respuestaA!,
+                          style: TextStyle(
+                              fontFamily: 'Helv',
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                const SizedBox(height: 5),
                 Text(
                   comment.conclusion,
                   style: const TextStyle(
@@ -151,17 +176,15 @@ class _ComHeader extends StatelessWidget {
 }
 
 class _ComStats extends StatelessWidget {
-
+  final VoidCallback onTapped;
   final Comentario comment;
   final User user;
-  final Propuesta prop;
 
   const _ComStats(
       {Key? key,
       required this.comment,
       required this.user,
-      required this.prop
-     });
+      required this.onTapped});
 
   @override
   Widget build(BuildContext context) {
@@ -194,19 +217,7 @@ class _ComStats extends StatelessWidget {
               const SizedBox(width: 30),
               //Responder comentario
               GestureDetector(
-                  onTap: () async {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => BlocProvider(
-                                  bloc: CommBloc(),
-                                  child: RespuestaScreen(
-                                    user: user,
-                                    prop: prop,
-                                    comraiz: comment,
-                                  ), 
-                                )));
-                  },
+                  onTap: onTapped,
                   child: Text(
                     'Responder',
                     style: TextStyle(

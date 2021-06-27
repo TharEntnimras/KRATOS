@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
+import 'package:kratos_pdd/Debate/bloc/comm_bloc.dart';
 import 'package:kratos_pdd/Debate/ui/screens/comment_screen.dart';
 import 'package:kratos_pdd/Participacion/model/propuesta.dart';
 import 'package:kratos_pdd/User/bloc/bloc_user.dart';
@@ -91,21 +92,32 @@ class PropContainer extends StatelessWidget {
                     ),
                   ],
                 ),
-                //Divider(),
                 const SizedBox(height: 12.0),
-                Text(
-                  'Argumento',
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontFamily: 'Basker',
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black87,
-
-                    //fontWeight: FontWeight.w500
-                  ),
-                  textAlign: TextAlign.center,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 1.5,
+                      width: 280,
+                      decoration: BoxDecoration(
+                          color: Colors.grey[400],
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 12.0),
+                // Text(
+                //   'Argumento',
+                //   style: TextStyle(
+                //     fontSize: 12,
+                //     fontFamily: 'Basker',
+                //     fontWeight: FontWeight.w600,
+                //     color: Colors.black87,
+
+                //     //fontWeight: FontWeight.w500
+                //   ),
+                //   textAlign: TextAlign.center,
+                // ),
+                SizedBox(height: 15.0),
                 Text(
                   '${prop.argumento}',
                   style: TextStyle(
@@ -117,7 +129,7 @@ class PropContainer extends StatelessWidget {
                 ),
                 prop.imageUrl != null
                     ? const SizedBox.shrink()
-                    : const SizedBox(height: 6.0),
+                    : const SizedBox(height: 10.0),
               ],
             ),
           ),
@@ -153,10 +165,10 @@ class _PropHeader extends StatelessWidget {
     return Row(
       children: [
         prop.orden == 'acad'
-            ? FaIcon(
-                FontAwesomeIcons.university,
+            ? Icon(
+                Icons.school_rounded,
                 color: Colors.grey[600],
-                size: 36,
+                size: 38,
               )
             : prop.orden == 'admin'
                 ? Icon(
@@ -167,7 +179,7 @@ class _PropHeader extends StatelessWidget {
                 : Icon(
                     Icons.group_rounded,
                     color: Colors.grey[600],
-                    size: 35,
+                    size: 36,
                   ),
         const SizedBox(width: 8.0),
         Expanded(
@@ -233,7 +245,7 @@ class _PropStats extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(right: 4, left: 4),
+          padding: const EdgeInsets.only(left: 11, right: 13),
           child: Row(
             children: [
               Container(
@@ -269,14 +281,14 @@ class _PropStats extends StatelessWidget {
             ],
           ),
         ),
-        const Divider(),
+        const Divider(height: 5,),
         Row(
           children: [
             PostButton(
               icon: FaIcon(
                 FontAwesomeIcons.fistRaised,
                 color: Colors.grey[600],
-                size: 18.3,
+                size: 18.2,
               ),
               label: 'Apoyo',
               onTap: () => {},
@@ -287,12 +299,19 @@ class _PropStats extends StatelessWidget {
                 color: Colors.grey[600],
                 size: 18,
               ),
-              label: 'Comentar',
+              label: 'Debatir',
               onTap: () async {
+                //debatir propuesta
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => CommentScreen(user: user)));
+                        builder: (context) => BlocProvider(
+                              child: CommentScreen(
+                                user: user,
+                                prop: prop,
+                              ),
+                              bloc: CommBloc(),
+                            )));
               },
             ),
             PostButton(
