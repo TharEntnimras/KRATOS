@@ -8,6 +8,7 @@ class ApiCloudComment {
   static final String PROPUESTAS = "propuestas";
   static final String COMENTARIOS = "comentarios";
   static final String RESPUESTAS = "respuestas";
+  static final String RERE = 'rere';
 
   final FirebaseFirestore _db = FirebaseFirestore.instance;
   //final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -61,8 +62,40 @@ class ApiCloudComment {
       'adno': 0,
       'exno': 0,
       'fecha': com.fecha,
-      'respuestaA':com.respuestaA
+      'respuestaA': com.respuestaA
     }).then((value) => print('CARGA DE RESPUESTA TERMINADA'));
+  }
+
+  Future<void> subirReRe(
+      Comentario com, String pid, String cidraiz, String recid) async {
+    CollectionReference refResp = _db
+        .collection(PROPUESTAS)
+        .doc(pid)
+        .collection(COMENTARIOS)
+        .doc(cidraiz)
+        .collection(RESPUESTAS)
+        .doc(recid)
+        .collection(RERE);
+
+    refResp.add({
+      'autor': com.autor,
+      'autorTipo': com.autorTipo,
+      'posicion': com.posicion,
+      'conclusion': com.conclusion,
+      'argumento': com.argumento,
+      'owner': _db
+          .doc("$USERS/${com.ownerid}"), //reference - tipo de dato referencia
+      'estlike': 0,
+      'doclike': 0,
+      'adlike': 0,
+      'exlike': 0,
+      'estno': 0,
+      'docno': 0,
+      'adno': 0,
+      'exno': 0,
+      'fecha': com.fecha,
+      'respuestaA': com.respuestaA
+    }).then((value) => print('CARGA DE RE RE TERMINADA'));
   }
 
   Stream<QuerySnapshot> comentariosStream(String pid) =>
@@ -70,6 +103,7 @@ class ApiCloudComment {
           .collection(PROPUESTAS)
           .doc(pid)
           .collection(COMENTARIOS)
+          .orderBy('fecha', descending: false)
           .snapshots();
 
   Stream<QuerySnapshot> respuestasStream(String pid, String cid) =>
@@ -78,6 +112,19 @@ class ApiCloudComment {
           .doc(pid)
           .collection(COMENTARIOS)
           .doc(cid)
-          .collection(RESPUESTAS).orderBy('fecha', descending: false)
+          .collection(RESPUESTAS)
+          .orderBy('fecha', descending: false)
+          .snapshots();
+          
+  Stream<QuerySnapshot> rereStream(String pid, String cidraiz, String recid) =>
+      FirebaseFirestore.instance
+          .collection(PROPUESTAS)
+          .doc(pid)
+          .collection(COMENTARIOS)
+          .doc(cidraiz)
+          .collection(RESPUESTAS)
+          .doc(recid)
+          .collection(RERE)
+          .orderBy('fecha', descending: false)
           .snapshots();
 }

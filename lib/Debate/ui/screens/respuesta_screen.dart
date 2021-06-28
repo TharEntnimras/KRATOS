@@ -4,10 +4,14 @@ import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:kratos_pdd/Debate/bloc/comm_bloc.dart';
 import 'package:kratos_pdd/Debate/model/Comentario.dart';
+import 'package:kratos_pdd/Debate/ui/screens/comment_screen.dart';
 import 'package:kratos_pdd/Debate/ui/widget/box_comment.dart';
 import 'package:kratos_pdd/Debate/ui/widget/com_raiz_container.dart';
 import 'package:kratos_pdd/Debate/ui/widget/coment_container.dart';
+import 'package:kratos_pdd/Debate/ui/widget/comm_render.dart';
+import 'package:kratos_pdd/Debate/ui/widget/rere_container.dart';
 import 'package:kratos_pdd/Debate/ui/widget/resp_container.dart';
+import 'package:kratos_pdd/Debate/ui/widget/test_render.dart';
 import 'package:kratos_pdd/Info/ui/screens/info_screen.dart';
 import 'package:kratos_pdd/Participacion/model/propuesta.dart';
 import 'package:kratos_pdd/User/model/user.dart';
@@ -32,6 +36,8 @@ class _RespuestaScreenState extends State<RespuestaScreen> {
   late CommBloc commBloc;
   String posicion = 'nulo';
   final formKey = GlobalKey<FormState>();
+  bool rere = false;
+  late String recid;
 
   late String respuestaA = '';
   final TextEditingController argController = TextEditingController();
@@ -41,10 +47,31 @@ class _RespuestaScreenState extends State<RespuestaScreen> {
     concfocus.requestFocus();
     tilefocus.requestFocus();
     setState(() {
+      if (com.cid != widget.comraiz.cid) {
+        rere = true;
+      } else {
+        rere = false;
+      }
       respuestaA = 'A ${com.autor}: ';
       posicion = 'nulo';
+      recid = com.cid!;
     });
-  } 
+  }
+
+  onTappedReRe(Comentario com, String cidpadre) {
+    concfocus.requestFocus();
+    tilefocus.requestFocus();
+    setState(() {
+      if (com.cid != widget.comraiz.cid) {
+        rere = true;
+      } else {
+        rere = false;
+      }
+      respuestaA = 'A ${com.autor}: ';
+      posicion = 'nulo';
+      recid = cidpadre;
+    });
+  }
 
   late List items = [
     Comentario(
@@ -198,15 +225,103 @@ class _RespuestaScreenState extends State<RespuestaScreen> {
                                         onTapped: () {
                                           onTapped(comentario);
                                         },
-                                      )
+                                      ),
+                                      //Rendereando RERE
+                                      StreamBuilder(
+                                          stream: commBloc.rereStream(
+                                              widget.prop.pid,
+                                              widget.comraiz.cid!,
+                                              comentario.cid!),
+                                          builder: (context,
+                                              AsyncSnapshot<QuerySnapshot>
+                                                  snapshot) {
+                                            switch (snapshot.connectionState) {
+                                              case ConnectionState.waiting:
+                                                return LoadingScreen();
+                                              case ConnectionState.done:
+                                                return LoadingScreen();
+                                              case ConnectionState.active:
+                                                List<Comentario> comentarios =
+                                                    commBloc.buildRespuestas(
+                                                        snapshot.data!.docs);
+                                                return Column(
+                                                  children:
+                                                      comentarios.map((c) {
+                                                    return ReReContainer(
+                                                      comment: c,
+                                                      user: widget.user,
+                                                      onTapped: () {
+                                                        onTappedReRe(
+                                                            c, comentario.cid!);
+                                                      },
+                                                    );
+                                                  }).toList(),
+                                                );
+                                              case ConnectionState.none:
+                                                return LoadingScreen();
+                                              default:
+                                                return LoadingScreen();
+                                            }
+                                          }),
+
+                                      // TestRender(
+                                      //   prop: widget.prop,
+                                      //   user: widget.user,
+                                      //   onTapped: () {
+                                      //     onTapped(comentario);
+                                      //   },
+                                      //   cidraiz: widget.comraiz.cid!,
+                                      //   recid: comentario.cid!,
+                                      // )
                                     ]);
                                   } else {
-                                    return RespContainer(
-                                      comment: comentario,
-                                      user: widget.user,
-                                      onTapped: () {
-                                        onTapped(comentario);
-                                      },
+                                    return Column(
+                                      children: [
+                                        RespContainer(
+                                          comment: comentario,
+                                          user: widget.user,
+                                          onTapped: () {
+                                            onTapped(comentario);
+                                          },
+                                        ),
+                                        StreamBuilder(
+                                            stream: commBloc.rereStream(
+                                                widget.prop.pid,
+                                                widget.comraiz.cid!,
+                                                comentario.cid!),
+                                            builder: (context,
+                                                AsyncSnapshot<QuerySnapshot>
+                                                    snapshot) {
+                                              switch (
+                                                  snapshot.connectionState) {
+                                                case ConnectionState.waiting:
+                                                  return LoadingScreen();
+                                                case ConnectionState.done:
+                                                  return LoadingScreen();
+                                                case ConnectionState.active:
+                                                  List<Comentario> comentarios =
+                                                      commBloc.buildRespuestas(
+                                                          snapshot.data!.docs);
+                                                  return Column(
+                                                    children:
+                                                        comentarios.map((c) {
+                                                      return ReReContainer(
+                                                        comment: c,
+                                                        user: widget.user,
+                                                        onTapped: () {
+                                                          onTappedReRe(c,
+                                                              comentario.cid!);
+                                                        },
+                                                      );
+                                                    }).toList(),
+                                                  );
+                                                case ConnectionState.none:
+                                                  return LoadingScreen();
+                                                default:
+                                                  return LoadingScreen();
+                                              }
+                                            }),
+                                      ],
                                     );
                                   }
                                 },
@@ -250,27 +365,42 @@ class _RespuestaScreenState extends State<RespuestaScreen> {
             errorText: 'El comentario no puede estar en blanco',
             sendButtonMethod: () {
               if (concController.text != '' && argController.text != '') {
-                commBloc.subirRespuesta(
-                  Comentario(
-                    autor: widget.user.name,
-                    posicion: posicion,
-                    conclusion: concController.text,
-                    argumento: argController.text,
-                    autorTipo: widget.user.tipo!,
-                    ownerid: widget.user.uid,
-                    fecha: DateTime.now(),
-                    respuestaA: respuestaA,
-                  ),
-                  widget.prop.pid,
-                  widget.comraiz.cid!,
-                );
+                if (rere) {
+                  commBloc.subirReRe(
+                    Comentario(
+                      autor: widget.user.name,
+                      posicion: posicion,
+                      conclusion: concController.text,
+                      argumento: argController.text,
+                      autorTipo: widget.user.tipo!,
+                      ownerid: widget.user.uid,
+                      fecha: DateTime.now(),
+                      respuestaA: respuestaA,
+                    ),
+                    widget.prop.pid,
+                    widget.comraiz.cid!,
+                    recid,
+                  );
+                } else {
+                  commBloc.subirRespuesta(
+                    Comentario(
+                      autor: widget.user.name,
+                      posicion: posicion,
+                      conclusion: concController.text,
+                      argumento: argController.text,
+                      autorTipo: widget.user.tipo!,
+                      ownerid: widget.user.uid,
+                      fecha: DateTime.now(),
+                      respuestaA: respuestaA,
+                    ),
+                    widget.prop.pid,
+                    widget.comraiz.cid!,
+                  );
+                }
 
                 argController.clear();
                 concController.clear();
                 tilefocus.unfocus();
-                
-              } else {
-                print("Not validated");
               }
             },
             formKey: formKey,
@@ -288,7 +418,9 @@ class _RespuestaScreenState extends State<RespuestaScreen> {
                     children: [
                       Row(
                         children: [
-                          SizedBox(width: 22,),
+                          SizedBox(
+                            width: 22,
+                          ),
                           Container(
                             //color: Colors.white
                             //width: 100,
@@ -309,39 +441,6 @@ class _RespuestaScreenState extends State<RespuestaScreen> {
                       )
                     ],
                   ),
-
-            // respField: Container(
-            //     height: 50,
-            //     padding: EdgeInsets.symmetric(horizontal: 20),
-            //     child: TextField(
-            //       focusNode: concfocus,
-            //       autofocus: false,
-            //       autocorrect: false,
-            //       textAlign: TextAlign.left,
-            //       controller: concController,
-            //       keyboardType: TextInputType.multiline,
-            //       maxLines: 1,
-            //       maxLength: 80,
-            //       cursorColor: Colors.black,
-            //       // style: TextStyle(
-            //       //     fontSize: fontsize,
-            //       //     fontFamily: fontfamily,
-            //       //     color: fontcolor,
-            //       //     fontWeight: fontweight),
-            //       decoration: InputDecoration(
-            //         contentPadding: const EdgeInsets.all(5),
-            //         filled: true,
-            //         fillColor: Colors.grey[200], //
-            //         //border: InputBorder.none,
-            //         hintText: 'Tu conclusion ...',
-            //         enabledBorder: OutlineInputBorder(
-            //             borderSide: BorderSide(color: Color(0xFFe5e5e5)),
-            //             borderRadius: BorderRadius.all(Radius.circular(9.0))),
-            //         focusedBorder: OutlineInputBorder(
-            //             borderSide: BorderSide(color: Color(0xFFe5e5e5)),
-            //             borderRadius: BorderRadius.all(Radius.circular(9.0))),
-            //       ),
-            //     )),
           ),
         ));
   }

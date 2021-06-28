@@ -32,9 +32,9 @@ class RespContainer extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 55, right: 10),
+            padding: const EdgeInsets.only(left: 50, right: 10),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _ComHeader(comment: comment),
                 const SizedBox(height: 7.0),

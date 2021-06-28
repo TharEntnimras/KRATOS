@@ -13,11 +13,17 @@ class CommBloc implements Bloc {
   void subirRespuesta(Comentario com, String pid, String cid) =>
       _cloudComRepo.subirRespuesta(com, pid, cid);
 
+  void subirReRe(Comentario com, String pid, String cidraiz, String recid) =>
+      _cloudComRepo.subirReRe(com, pid, cidraiz, recid);
+
   Stream<QuerySnapshot> comentariosStream(String pid) =>
       _cloudComRepo.comentariosStream(pid);
 
   Stream<QuerySnapshot> respuestasStream(String pid, String cid) =>
       _cloudComRepo.respuestasStream(pid, cid);
+
+  Stream<QuerySnapshot> rereStream(String pid, String cidraiz, String recid) =>
+      _cloudComRepo.rereStream(pid, cidraiz, recid);
 
   List<Comentario> buildComentarios(List<DocumentSnapshot> commSnapshots) {
     List<Comentario> comentarios = [];
@@ -40,15 +46,14 @@ class CommBloc implements Bloc {
     List<Comentario> comentarios = [];
     commSnapshots.forEach((p) {
       Comentario com = Comentario(
-        autor: p.get('autor'),
-        posicion: p.get('posicion'),
-        conclusion: p.get('conclusion'),
-        argumento: p.get('argumento'),
-        autorTipo: p.get('autorTipo'),
-        cid: p.id,
-        ownerid: p.get('owner').id,
-        respuestaA: p.get('respuestaA')
-      );
+          autor: p.get('autor'),
+          posicion: p.get('posicion'),
+          conclusion: p.get('conclusion'),
+          argumento: p.get('argumento'),
+          autorTipo: p.get('autorTipo'),
+          cid: p.id,
+          ownerid: p.get('owner').id,
+          respuestaA: p.get('respuestaA'));
       comentarios.add(com);
     });
     return comentarios;

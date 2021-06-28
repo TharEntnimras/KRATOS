@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:kratos_pdd/Debate/bloc/comm_bloc.dart';
@@ -12,18 +11,17 @@ import 'package:kratos_pdd/User/bloc/bloc_user.dart';
 import 'package:kratos_pdd/User/model/user.dart';
 import 'package:kratos_pdd/widgets/post_button.dart';
 
-class ComRaizContainer extends StatelessWidget {
+class ReReContainer extends StatelessWidget {
   final VoidCallback onTapped;
   final Comentario comment;
   final User user;
   //final Propuesta prop;
 
-  ComRaizContainer(
+  ReReContainer(
       {Key? key,
       required this.comment,
       required this.user,
-      required this.onTapped
-      });
+      required this.onTapped});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +32,7 @@ class ComRaizContainer extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 15, right: 10),
+            padding: const EdgeInsets.only(left: 110, right: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -52,7 +50,7 @@ class ComRaizContainer extends StatelessWidget {
                   child: Text(
                     comment.argumento,
                     style: TextStyle(
-                        fontSize: 15.3,
+                        fontSize: 14.3,
                         fontFamily: 'Helv',
                         color: Colors.black87,
                         fontWeight: FontWeight.normal
@@ -70,6 +68,10 @@ class ComRaizContainer extends StatelessWidget {
             ),
           ),
 
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 12.0),
+          //   child: _PropStats(prop: prop),
+          // )
         ],
       ),
     );
@@ -93,18 +95,18 @@ class _ComHeader extends StatelessWidget {
           comment.posicion == 'pro'
               ? Container(
                   // height: 35,
-                  width: 7,
+                  width: 5,
                   color: Colors.green[600],
                 )
               : comment.posicion == 'contra'
                   ? Container(
                       //height: 35,
-                      width: 7,
+                      width: 5,
                       color: Colors.red[600],
                     )
                   : Container(
                       //height: 35,
-                      width: 7,
+                      width: 5,
                       color: Colors.grey[400],
                     ),
           const SizedBox(width: 8.0),
@@ -112,31 +114,56 @@ class _ComHeader extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  comment.autor,
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'Helv',
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold),
+                Row(
+                  children: [
+                    Text(
+                      '${comment.autor} • ',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontFamily: 'Helv',
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    //const SizedBox(height: 4),
+                    Text(
+                      comment.autorTipo,
+                      style: TextStyle(
+                          color: Colors.black54,
+                          fontFamily: 'Helv',
+                          fontSize: 11,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  comment.autorTipo,
-                  style: TextStyle(
-                      color: Colors.black54,
-                      fontFamily: 'Helv',
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 3),
+                comment.respuestaA == '' || comment.respuestaA == null
+                    ? SizedBox.shrink()
+                    : Container(
+                        padding: EdgeInsets.only(
+                            left: 4, top: 4, bottom: 2, right: 3),
+                        //width: 150,
+                        color: comment.posicion == 'pro'
+                            ? Colors.green[600]
+                            : comment.posicion == 'contra'
+                                ? Colors.red[600]
+                                : Colors.grey[400],
+                        child: Text(
+                          comment.respuestaA!,
+                          style: TextStyle(
+                              fontFamily: 'Helv',
+                              fontSize: 12,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                const SizedBox(height: 5),
                 Text(
                   comment.conclusion,
                   style: const TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.w600,
                     fontFamily: 'Helv',
-                    fontSize: 15.5,
+                    fontSize: 14.5,
                   ),
                 ),
               ],
@@ -149,9 +176,7 @@ class _ComHeader extends StatelessWidget {
 }
 
 class _ComStats extends StatelessWidget {
-
   final VoidCallback onTapped;
-
   final Comentario comment;
   final User user;
 
@@ -159,8 +184,7 @@ class _ComStats extends StatelessWidget {
       {Key? key,
       required this.comment,
       required this.user,
-      required this.onTapped
-     });
+      required this.onTapped});
 
   @override
   Widget build(BuildContext context) {
@@ -184,7 +208,7 @@ class _ComStats extends StatelessWidget {
                   child: Text(
                     'Me gusta',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 13,
                       color: Colors.grey[600],
                       fontFamily: 'Helv',
                       fontWeight: FontWeight.w600,
@@ -197,7 +221,7 @@ class _ComStats extends StatelessWidget {
                   child: Text(
                     'Responder',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 13,
                       color: Colors.grey[600],
                       fontFamily: 'Helv',
                       fontWeight: FontWeight.w600,
@@ -222,7 +246,7 @@ class _ComStats extends StatelessWidget {
             ),
             child: const FaIcon(
               FontAwesomeIcons.fistRaised,
-              size: 11.0,
+              size: 10.0,
               color: Colors.white,
             ),
           ), //const SizedBox(width: 8.0),
