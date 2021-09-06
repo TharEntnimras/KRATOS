@@ -9,7 +9,7 @@ import 'package:kratos_pdd/Debate/ui/screens/respuesta_screen.dart';
 import 'package:kratos_pdd/Participacion/model/propuesta.dart';
 import 'package:kratos_pdd/User/bloc/bloc_user.dart';
 import 'package:kratos_pdd/User/model/user.dart';
-import 'package:kratos_pdd/widgets/post_button.dart';
+
 
 class ReReContainer extends StatelessWidget {
   final VoidCallback onTapped;
@@ -32,30 +32,33 @@ class ReReContainer extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 110, right: 10),
+            padding: const EdgeInsets.only(left: 115, right: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _ComHeader(comment: comment),
-                const SizedBox(height: 7.0),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(9.0),
+                const SizedBox(height: 3.0),
+                Padding(
+                  padding: const EdgeInsets.only(left: 11),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(9.0),
+                      ),
+                      color: Colors.grey[300],
                     ),
-                    color: Colors.grey[300],
-                  ),
-                  //color: Colors.grey[300],
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    comment.argumento,
-                    style: TextStyle(
-                        fontSize: 14.3,
-                        fontFamily: 'Helv',
-                        color: Colors.black87,
-                        fontWeight: FontWeight.normal
-                        //fontWeight: FontWeight.w500
-                        ),
+                    //color: Colors.grey[300],
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                      comment.argumento,
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Helv',
+                          color: Colors.black87,
+                          fontWeight: FontWeight.normal
+                          //fontWeight: FontWeight.w500
+                          ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 5.0),
@@ -95,18 +98,18 @@ class _ComHeader extends StatelessWidget {
           comment.posicion == 'pro'
               ? Container(
                   // height: 35,
-                  width: 5,
+                  width: 3,
                   color: Colors.green[600],
                 )
               : comment.posicion == 'contra'
                   ? Container(
                       //height: 35,
-                      width: 5,
+                      width: 3,
                       color: Colors.red[600],
                     )
                   : Container(
                       //height: 35,
-                      width: 5,
+                      width: 3,
                       color: Colors.grey[400],
                     ),
           const SizedBox(width: 8.0),
@@ -156,14 +159,14 @@ class _ComHeader extends StatelessWidget {
                               fontWeight: FontWeight.w600),
                         ),
                       ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 7),
                 Text(
                   comment.conclusion,
                   style: const TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.w600,
                     fontFamily: 'Helv',
-                    fontSize: 14.5,
+                    fontSize: 14,
                   ),
                 ),
               ],
@@ -197,7 +200,7 @@ class _ComStats extends StatelessWidget {
         comment.docno +
         comment.exno;
     return Padding(
-      padding: const EdgeInsets.only(right: 4, left: 4),
+      padding: const EdgeInsets.only(right: 4, left: 14),
       child: Row(
         children: [
           Expanded(

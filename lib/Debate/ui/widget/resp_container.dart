@@ -37,25 +37,28 @@ class RespContainer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _ComHeader(comment: comment),
-                const SizedBox(height: 7.0),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(9.0),
+                const SizedBox(height: 4.0),
+                Padding(
+                  padding: const EdgeInsets.only(left: 13),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(9.0),
+                      ),
+                      color: Colors.grey[300],
                     ),
-                    color: Colors.grey[300],
-                  ),
-                  //color: Colors.grey[300],
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    comment.argumento,
-                    style: TextStyle(
-                        fontSize: 14.3,
-                        fontFamily: 'Helv',
-                        color: Colors.black87,
-                        fontWeight: FontWeight.normal
-                        //fontWeight: FontWeight.w500
-                        ),
+                    //color: Colors.grey[300],
+                    padding: EdgeInsets.all(8),
+                    child: Text(
+                      comment.argumento,
+                      style: TextStyle(
+                          fontSize: 14.3,
+                          fontFamily: 'Helv',
+                          color: Colors.black87,
+                          fontWeight: FontWeight.normal
+                          //fontWeight: FontWeight.w500
+                          ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 5.0),
@@ -95,18 +98,18 @@ class _ComHeader extends StatelessWidget {
           comment.posicion == 'pro'
               ? Container(
                   // height: 35,
-                  width: 5,
+                  width: 6,
                   color: Colors.green[600],
                 )
               : comment.posicion == 'contra'
                   ? Container(
                       //height: 35,
-                      width: 5,
+                      width: 6,
                       color: Colors.red[600],
                     )
                   : Container(
                       //height: 35,
-                      width: 5,
+                      width: 6,
                       color: Colors.grey[400],
                     ),
           const SizedBox(width: 8.0),
@@ -156,7 +159,7 @@ class _ComHeader extends StatelessWidget {
                               fontWeight: FontWeight.w600),
                         ),
                       ),
-                const SizedBox(height: 5),
+                const SizedBox(height: 9),
                 Text(
                   comment.conclusion,
                   style: const TextStyle(
@@ -197,7 +200,7 @@ class _ComStats extends StatelessWidget {
         comment.docno +
         comment.exno;
     return Padding(
-      padding: const EdgeInsets.only(right: 4, left: 4),
+      padding: const EdgeInsets.only(right: 4, left: 16),
       child: Row(
         children: [
           Expanded(

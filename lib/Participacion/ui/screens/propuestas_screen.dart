@@ -168,6 +168,7 @@ class PropuestasScreen extends StatelessWidget {
                 case ConnectionState.done:
                   return LoadingScreen();
                 case ConnectionState.active:
+        
                   //Rendereando propuestas 
                   List<Propuesta> propuestas =
                       partBloc.buildPropuestas(snapshot.data!.docs);

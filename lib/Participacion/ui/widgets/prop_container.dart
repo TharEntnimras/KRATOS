@@ -1,13 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_reaction_button/flutter_reaction_button.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:kratos_pdd/Debate/bloc/comm_bloc.dart';
 import 'package:kratos_pdd/Debate/ui/screens/comment_screen.dart';
+import 'package:kratos_pdd/Participacion/bloc/part_bloc.dart';
 import 'package:kratos_pdd/Participacion/model/propuesta.dart';
-import 'package:kratos_pdd/User/bloc/bloc_user.dart';
+import 'package:kratos_pdd/Participacion/ui/widgets/reac_splash.dart';
 import 'package:kratos_pdd/User/model/user.dart';
 import 'package:kratos_pdd/widgets/post_button.dart';
+import 'package:kratos_pdd/widgets/reacciones.dart';
 
 class PropContainer extends StatelessWidget {
   final User user;
@@ -28,108 +31,12 @@ class PropContainer extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                _PropHeader(prop: prop),
+                PropHeader(prop: prop),
                 const SizedBox(height: 16.0),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 70,
-                      child: Text(
-                        'Problema:  ',
-                        style: TextStyle(
-                            fontSize: 11,
-                            fontFamily: 'Basker',
-                            color: Colors.black87,
-                            fontWeight: FontWeight.w600
-                            //fontWeight: FontWeight.w500
-                            ),
-                      ),
-                    ),
-                    Container(
-                      width: 245,
-                      child: Text(
-                        '${prop.problema}',
-                        style: TextStyle(
-                          fontSize: 14.5,
-                          fontFamily: 'Basker',
-                          fontWeight: FontWeight.w500,
-                          //fontWeight: FontWeight.w500
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10.0),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 70,
-                      child: Text(
-                        'Solución:   ',
-                        style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: 'Basker',
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black87
-                            //fontWeight: FontWeight.w500
-                            ),
-                      ),
-                    ),
-                    Container(
-                      width: 245,
-                      child: Text(
-                        '${prop.solucion}',
-                        style: TextStyle(
-                          fontSize: 14.5,
-                          fontFamily: 'Basker',
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 12.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 1.5,
-                      width: 280,
-                      decoration: BoxDecoration(
-                          color: Colors.grey[400],
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                    ),
-                  ],
-                ),
-                // Text(
-                //   'Argumento',
-                //   style: TextStyle(
-                //     fontSize: 12,
-                //     fontFamily: 'Basker',
-                //     fontWeight: FontWeight.w600,
-                //     color: Colors.black87,
-
-                //     //fontWeight: FontWeight.w500
-                //   ),
-                //   textAlign: TextAlign.center,
-                // ),
-                SizedBox(height: 15.0),
-                Text(
-                  '${prop.argumento}',
-                  style: TextStyle(
-                    fontSize: 14.5,
-                    fontFamily: 'Basker',
-                    fontWeight: FontWeight.w500,
-                  ),
-                  textAlign: TextAlign.justify,
-                ),
-                prop.imageUrl != null
-                    ? const SizedBox.shrink()
-                    : const SizedBox(height: 10.0),
+                PropBody(prop: prop),
+                // prop.imageUrl != null
+                //     ? const SizedBox.shrink()
+                //     : const SizedBox(height: 10.0),
               ],
             ),
           ),
@@ -139,6 +46,7 @@ class PropContainer extends StatelessWidget {
                   child: CachedNetworkImage(imageUrl: prop.imageUrl!),
                 )
               : const SizedBox.shrink(),
+          const SizedBox(height: 22),
           _PropStats(
             prop: prop,
             user: user,
@@ -153,13 +61,121 @@ class PropContainer extends StatelessWidget {
   }
 }
 
-class _PropHeader extends StatelessWidget {
+class PropBody extends StatelessWidget {
+  const PropBody({
+    Key? key,
+    required this.prop,
+  }) : super(key: key);
+
   final Propuesta prop;
 
-  const _PropHeader({
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 70,
+              child: Text(
+                'Problema:  ',
+                style: TextStyle(
+                    fontSize: 11,
+                    fontFamily: 'Basker',
+                    color: Colors.black87,
+                    fontWeight: FontWeight.w600
+                    //fontWeight: FontWeight.w500
+                    ),
+              ),
+            ),
+            Container(
+              width: 245,
+              child: Text(
+                '${prop.problema}',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 13,
+                  fontFamily: 'Basker',
+                  fontWeight: FontWeight.w600,
+                  //fontWeight: FontWeight.w500
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 10.0),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 70,
+              child: Text(
+                'Solución:   ',
+                style: TextStyle(
+                    fontSize: 12,
+                    fontFamily: 'Basker',
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87
+                    //fontWeight: FontWeight.w500
+                    ),
+              ),
+            ),
+            Container(
+              width: 245,
+              child: Text(
+                '${prop.solucion}',
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 13,
+                  fontFamily: 'Basker',
+                  fontWeight: FontWeight.w600,
+                ),
+                textAlign: TextAlign.left,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12.0),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 1.5,
+              width: 280,
+              decoration: BoxDecoration(
+                  color: Colors.grey[400],
+                  borderRadius: BorderRadius.all(Radius.circular(5))),
+            ),
+          ],
+        ),
+        SizedBox(height: 15.0),
+        Text(
+          '${prop.argumento}',
+          style: TextStyle(
+            fontSize: 14,
+            color: Color(0xff2F4F4F),
+            fontFamily: 'Basker',
+            fontWeight: FontWeight.w600,
+          ),
+          textAlign: TextAlign.justify,
+        ),
+      ],
+    );
+  }
+}
+
+class PropHeader extends StatelessWidget {
+  final Propuesta prop;
+
+  const PropHeader({
     Key? key,
     required this.prop,
   });
+
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -226,40 +242,44 @@ class _PropHeader extends StatelessWidget {
   }
 }
 
-class _PropStats extends StatelessWidget {
+class _PropStats extends StatefulWidget {
   final Propuesta prop;
   final User user;
 
-  const _PropStats({Key? key, required this.prop, required this.user});
+  _PropStats({Key? key, required this.prop, required this.user});
+
+  @override
+  __PropStatsState createState() => __PropStatsState();
+}
+
+class __PropStatsState extends State<_PropStats> {
+  final reactions = Reacciones();
+
+  late PartBloc partBloc;
 
   @override
   Widget build(BuildContext context) {
-    int reacciones = prop.adlike +
-        prop.doclike +
-        prop.estlike +
-        prop.exlike +
-        prop.adno +
-        prop.docno +
-        prop.docno +
-        prop.exno;
+    partBloc = BlocProvider.of(context);
+
+    int reacciones = widget.prop.numapoyo +
+        widget.prop.numencanta +
+        widget.prop.numrevisar +
+        widget.prop.numnoapoyo;
+    print(' suma de reacciiones: $reacciones');
+
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 11, right: 13),
           child: Row(
             children: [
-              Container(
-                padding: const EdgeInsets.all(4.0),
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  shape: BoxShape.circle,
-                ),
-                child: const FaIcon(
-                  FontAwesomeIcons.fistRaised,
-                  size: 10.0,
-                  color: Colors.white,
-                ),
-              ),
+              // aca va el nuevo widget
+              ReacSplash(
+                  numapoyo: widget.prop.numapoyo,
+                  numencanta: widget.prop.numencanta,
+                  numrevisar: widget.prop.numrevisar,
+                  numnoapoyo: widget.prop.numnoapoyo),
+
               SizedBox(
                 width: 4.0,
               ),
@@ -271,33 +291,63 @@ class _PropStats extends StatelessWidget {
                   ),
                 ),
               ),
-              //const SizedBox(width: 8.0),
               Text(
-                '${prop.comentarios?.length} Comentarios',
+                '${widget.prop.comentarios} comentarios',
                 style: TextStyle(
-                  color: Colors.grey[600],
-                ),
+                    color: Colors.grey[600], fontSize: 13, fontFamily: 'Helv'),
               ),
             ],
           ),
         ),
-        const Divider(height: 5,),
+        const Divider(
+          height: 5,
+        ),
         Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            PostButton(
-              icon: FaIcon(
-                FontAwesomeIcons.fistRaised,
-                color: Colors.grey[600],
-                size: 18.2,
+            Expanded(
+                child: Stack(children: [
+              Container(
+                height: 35,
+                color: Colors.grey[50],
               ),
-              label: 'Apoyo',
-              onTap: () => {},
-            ),
+              Padding(
+                padding: const EdgeInsets.only(top: 6.5),
+                child: FlutterReactionButton(
+                  onReactionChanged: (reaction, index) {
+                    if (index < 4) {
+                      partBloc.borrarReacdeProp(widget.prop.pid, widget.user);
+                      partBloc.reaccionarProp(
+                          widget.prop.pid, widget.user, index);
+                    } else {
+                      partBloc.borrarReacdeProp(widget.prop.pid, widget.user);
+                    }
+                  },
+                  //selectedReaction:
+                  reactions: reactions.reactions,
+                  initialReaction: widget.prop.apoyo
+                      ? reactions.reactions[0]
+                      : widget.prop.meencanta
+                          ? reactions.reactions[1]
+                          : widget.prop.revisar
+                              ? reactions.reactions[2]
+                              : widget.prop.noapoyo
+                                  ? reactions.reactions[3]
+                                  : reactions.reacDefault,
+                  boxDuration: Duration(milliseconds: 80),
+                  boxPosition: Position.TOP,
+                  boxAlignment: Alignment.bottomLeft,
+                ),
+              ),
+        
+
+            ])),
             PostButton(
               icon: FaIcon(
-                FontAwesomeIcons.comment,
-                color: Colors.grey[600],
-                size: 18,
+                Icons.forum_outlined ,
+                color: Colors.grey,
+                size: 23.5,
               ),
               label: 'Debatir',
               onTap: () async {
@@ -307,22 +357,22 @@ class _PropStats extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => BlocProvider(
                               child: CommentScreen(
-                                user: user,
-                                prop: prop,
+                                user: widget.user,
+                                prop: widget.prop,
                               ),
                               bloc: CommBloc(),
                             )));
               },
             ),
-            PostButton(
-              icon: FaIcon(
-                FontAwesomeIcons.share,
-                color: Colors.grey[600],
-                size: 18,
-              ),
-              label: 'Compartir',
-              onTap: () => print('Compartir'),
-            ),
+            // PostButton(
+            //   icon: FaIcon(
+            //     FontAwesomeIcons.share,
+            //     color: Colors.grey[600],
+            //     size: 18,
+            //   ),
+            //   label: 'Compartir',
+            //   onTap: () => print('Compartir'),
+            // ),
           ],
         )
       ],

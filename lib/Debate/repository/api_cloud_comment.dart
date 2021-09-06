@@ -34,7 +34,14 @@ class ApiCloudComment {
       'adno': 0,
       'exno': 0,
       'fecha': com.fecha,
-    }).then((value) => print('CARGA DE COMENTARIO TERMINADA'));
+    }).then((value) => {
+          _db
+              .collection(PROPUESTAS)
+              .doc(pid)
+              .update({'comentarios': FieldValue.increment(1)})
+
+          //  int coments = _db.collection(PROPUESTAS).doc(pid).get('comentarios');
+        });
   }
 
   Future<void> subirRespuesta(Comentario com, String pid, String cid) async {
@@ -115,7 +122,7 @@ class ApiCloudComment {
           .collection(RESPUESTAS)
           .orderBy('fecha', descending: false)
           .snapshots();
-          
+
   Stream<QuerySnapshot> rereStream(String pid, String cidraiz, String recid) =>
       FirebaseFirestore.instance
           .collection(PROPUESTAS)

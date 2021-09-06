@@ -21,7 +21,7 @@ class PostButton extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Container(
-            padding: const EdgeInsets.only(right: 15),
+            padding: const EdgeInsets.only(left: 10, right: 15),
             height: 35.0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -1,7 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:kratos_pdd/Debate/model/Comentario.dart';
-import 'package:kratos_pdd/User/model/user.dart';
-
 class Propuesta {
   String pid;
   final String nomprop;
@@ -23,7 +19,19 @@ class Propuesta {
   int exno;
   int adno;
   final String? fecha;
-  List<Comentario>? comentarios;
+  int comentarios;
+
+  int numapoyo;
+  int numencanta;
+  int numrevisar;
+  int numnoapoyo;
+  bool apoyo;
+  bool meencanta;
+  bool revisar;
+  bool noapoyo; 
+
+  bool isExpanded;
+
 
   Propuesta({
     this.pid = '123',
@@ -46,6 +54,16 @@ class Propuesta {
     this.exno = 0,
     this.imageUrl,
     this.fecha,
-    this.comentarios,
-  });
+    this.comentarios = 0,
+    this.numapoyo=0,
+    this.numencanta=0,
+    this.numnoapoyo=0,
+    this.numrevisar=0,
+    this.apoyo=false,
+    this.meencanta=false,
+    this.noapoyo=false,
+    this.revisar=false,
+    this.isExpanded=false
+  }
+  );
 }

@@ -21,6 +21,7 @@ class CommentScreen extends StatefulWidget {
 }
 
 class _CommentScreenState extends State<CommentScreen> {
+  
   late CommBloc commBloc;
   String posicion = 'nulo';
   final formKey = GlobalKey<FormState>();
