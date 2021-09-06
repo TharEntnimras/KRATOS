@@ -1,6 +1,6 @@
-# kratos_pdd
+# Kratos : Plataforma de Democracia digital 
 
-A new Flutter project.
+App dedicada a administrar los reclamos de los estudiantes, docentes, administrativos y alumnos de la Carrera de Informatica de la Universidad Mayor de San Andres.
 
 ## Getting Started
 
